@@ -1,0 +1,24 @@
+{% extends 'counseling/base.html' %}
+{% block content %}
+<h2>{{ college.name }} ({{ college.college_code }})</h2>
+<p>{{ college.place }}, {{ college.district }} &mdash; {{ college.get_college_type_display }}</p>
+
+<h3>Cutoffs (2025)</h3>
+<table>
+    <thead>
+        <tr><th>Branch</th><th>Community</th><th>Cutoff Mark</th></tr>
+    </thead>
+    <tbody>
+        {% for cutoff in cutoffs %}
+        <tr>
+            <td>{{ cutoff.branch.name }}</td>
+            <td>{{ cutoff.get_community_display }}</td>
+            <td>{{ cutoff.cutoff_mark }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">No cutoff data yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p style="margin-top:20px;"><a href="{% url 'college_list' %}">&larr; Back to college list</a></p>
+{% endblock %}

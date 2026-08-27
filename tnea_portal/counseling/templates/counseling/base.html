@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TNEA Counselling Portal{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'counseling/css/style.css' %}">
+</head>
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <div class="brand">
+                <span class="brand-mark">TNEA</span>
+                <span class="brand-sub">Tamil Nadu Engineering Admissions</span>
+            </div>
+            <nav class="mainnav">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'college_list' %}">Colleges</a>
+                <a href="{% url 'cutoff_search' %}">Cutoff Search</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}">Dashboard</a>
+                    <a href="{% url 'logout' %}">Logout ({{ user.username }})</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'register' %}" class="cta">Register</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <div class="container content">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="message {{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p> Toll free: 1800-425-0110  Email: tneacare@gmail.com </p>
+           <p> Directorate of Technical Education (DoTE), 53, Sardar Patel Road, Guindy, Chennai 600 025 </p>
+                <p> @2026, TNEA Page visits: 1,20,69,85</p>
+        </div>
+    </footer>
+</body>
+</html>

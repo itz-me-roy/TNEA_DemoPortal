@@ -1,0 +1,48 @@
+{% extends 'counseling/base.html' %}
+{% block content %}
+<h2>Cutoff-based College Search</h2>
+<p>Enter your cutoff mark and community to see colleges/branches where you're eligible, ranked by cutoff mark.</p>
+
+<form method="get" class="card">
+    <div class="field">
+        <label>{{ form.cutoff_mark.label }}</label>
+        {{ form.cutoff_mark }}
+    </div>
+    <div class="field">
+        <label>Community</label>
+        {{ form.community }}
+    </div>
+    <div class="field">
+        <label>Branch (optional)</label>
+        {{ form.branch }}
+    </div>
+    <button type="submit">Search</button>
+</form>
+
+{% if results is not None %}
+<h3 style="margin-top:30px;">Eligible options ({{ results|length }})</h3>
+<table>
+    <thead>
+        <tr><th>College</th><th>Branch</th><th>Cutoff Mark</th><th></th></tr>
+    </thead>
+    <tbody>
+        {% for cutoff in results %}
+        <tr>
+            <td><a href="{% url 'college_detail' cutoff.college.pk %}">{{ cutoff.college.name }}</a></td>
+            <td>{{ cutoff.branch.name }}</td>
+            <td>{{ cutoff.cutoff_mark }}</td>
+            <td>
+                {% if user.is_authenticated %}
+                <a class="btn" href="{% url 'apply_to_college' cutoff.pk %}">Save</a>
+                {% else %}
+                <a href="{% url 'login' %}">Login to save</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No eligible colleges found for this mark/community. Try lowering the mark or check seed data is loaded.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}

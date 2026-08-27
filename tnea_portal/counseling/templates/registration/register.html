@@ -1,0 +1,16 @@
+{% extends 'counseling/base.html' %}
+{% block content %}
+<h2>Student Registration</h2>
+<form method="post" class="card">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="field">
+        <label>{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}<p style="color:#b3261e; font-size:12px;">{{ field.errors|striptags }}</p>{% endif %}
+    </div>
+    {% endfor %}
+    <button type="submit">Register</button>
+</form>
+<p style="margin-top:16px;">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+{% endblock %}

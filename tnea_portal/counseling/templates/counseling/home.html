@@ -1,0 +1,24 @@
+{% extends 'counseling/base.html' %}
+{% block content %}
+<div class="hero">
+    <h1>Tamil Nadu Engineering Admissions </h1>
+    <p>Search engineering college cutoffs by community and mark, save your preferred options, and manage your counselling dashboard.</p>
+    <a class="btn" href="{% url 'cutoff_search' %}">Search Cutoffs</a>
+    <a class="btn btn-secondary" href="{% url 'college_list' %}">Browse Colleges</a>
+
+    <div class="stat-grid">
+        <div class="stat-box">
+            <div class="num">{{ stats.college_count }}</div>
+            <div class="label">Colleges listed</div>
+        </div>
+        <div class="stat-box">
+            <div class="num">{{ stats.branch_count }}</div>
+            <div class="label">Branches</div>
+        </div>
+        <div class="stat-box">
+            <div class="num">{{ stats.cutoff_count }}</div>
+            <div class="label">Cutoff records</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'counseling/base.html' %}
+{% block content %}
+<h2>Colleges</h2>
+<form method="get" class="search-form" style="margin-bottom:20px;">
+    <div class="field">
+        <label>Search by name</label>
+        <input type="text" name="q" value="{{ q }}" placeholder="e.g. PSG, Guindy...">
+    </div>
+    <button type="submit">Search</button>
+</form>
+
+<table>
+    <thead>
+        <tr><th>Code</th><th>Name</th><th>Place</th><th>District</th><th>Type</th></tr>
+    </thead>
+    <tbody>
+        {% for college in colleges %}
+        <tr>
+            <td>{{ college.college_code }}</td>
+            <td><a href="{% url 'college_detail' college.pk %}">{{ college.name }}</a></td>
+            <td>{{ college.place }}</td>
+            <td>{{ college.district }}</td>
+            <td>{{ college.get_college_type_display }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">No colleges found. Run <code>python manage.py seed_data</code> to load sample data.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
