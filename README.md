@@ -84,4 +84,4 @@ Ideas if you want to take this further:
 - Add rank-based (not just mark-based) eligibility logic.
 - Paginate the college list and cutoff search results.
 - Style pass with a CSS framework if you want a closer visual match.
--
+
